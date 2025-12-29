@@ -2,22 +2,31 @@
 import numpy as np
 #This is used for saving the model
 import pickle
+#This is for dataset operations and some data preprocessing
 import pandas as pd
+#We write this function for converting dna sequence which is alphabets form to numerical forms for ease of model learning 
 def one_hot_encode(seq):
     mapping = {'A': [1, 0, 0, 0],
                'T': [0, 1, 0, 0],
                'G': [0, 0, 1, 0],
                'C': [0, 0, 0, 1]}
+#The one inside the brackets it iterates through the sequence and checks for the base in the given mapping dictionary if not found returns [0,0,0,0]
+#np.array makes this list into a array and sqahes the matrix into 1d array for better results. 
     return np.array([mapping.get(base, [0, 0, 0, 0]) for base in seq]).flatten()
+#It is used for omitting the negative inputs to focus on important features only
 def relu(x):
     return np.maximum(0, x)
+#This is used for backpropagation for adjustment of x
 def relu_deriv(x):
     return (x > 0).astype(float)
+#It squashes the no's in range of 0 to 1 for omitting outliers and standardizing the inputs
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
+#This is used for backpropagation
 def sigmoid_deriv(x):
     s = sigmoid(x)
     return s * (1 - s)
+#Writing a class for Dna neural network class
 class DNA_NeuralNetwork:
     def __init__(self, input_size, hidden1=16, hidden2=8, output_size=1, dropout_rate=0.2):
         self.W1 = np.random.randn(input_size, hidden1) * 0.01
