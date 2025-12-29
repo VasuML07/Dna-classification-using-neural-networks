@@ -28,7 +28,10 @@ def sigmoid_deriv(x):
     return s * (1 - s)
 #Writing a class for Dna neural network class
 class DNA_NeuralNetwork:
+    #We are writing a constructor for neural network which has 1 input,2 hidden and 1 output layer.
+    #Dropout rate means offing some part of neurons so model never depends on specific path and neurons
     def __init__(self, input_size, hidden1=16, hidden2=8, output_size=1, dropout_rate=0.2):
+        # Total 3 input layers will have 3 weights and biases.
         self.W1 = np.random.randn(input_size, hidden1) * 0.01
         self.b1 = np.zeros((1, hidden1))
         self.W2 = np.random.randn(hidden1, hidden2) * 0.01
