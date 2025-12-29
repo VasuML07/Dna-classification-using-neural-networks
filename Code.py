@@ -1,4 +1,6 @@
+#This is used for mathematical operations
 import numpy as np
+#This is used for saving the model
 import pickle
 import pandas as pd
 def one_hot_encode(seq):
